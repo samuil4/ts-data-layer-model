@@ -1,13 +1,23 @@
 {
   "name": "ts-data-layer-model",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Models to help you organize your data layer.",
-  "main": "index.js",
   "repository": "git@github.com:samuil4/ts-data-layer-model.git",
-  "author": "Samuil Gospodinov <samuil4@gmail.com>",
+  "author": {
+    "name": "Samuil Gospodinov",
+    "email": "samuil@sixmart.tech",
+    "url": "https://github.com/samuil4/"
+  },
   "license": "MIT",
   "private": false,
   "dependencies": {
     "typescript": "^2.9.2"
-  }
+  },
+  "keywords": [
+    "type script",
+    "type-script",
+    "model",
+    "data",
+    "data-model"
+  ]
 }
