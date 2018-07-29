@@ -1,6 +1,6 @@
 {
   "name": "ts-data-layer-model",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Models to help you organize your data layer.",
   "repository": "git@github.com:samuil4/ts-data-layer-model.git",
   "author": {
