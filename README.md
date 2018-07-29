@@ -70,7 +70,7 @@ apiService.send(cleanItem);
 - 8.  Create method to export props as JSON excluding any sessionProperties.
 - 9.  Ability to cache values (getters) of properties. Example: Math.PI \* 256 - expected calculation to happen only once
 
-## Pending compleation
+## Pending completion
 
 - 4.  Do not let duplicated keys to be used in Props and SessionProps.
 - 10. Ability to clear on demand cached values
