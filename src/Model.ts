@@ -85,6 +85,30 @@ export class Model {
   }
 
   /**
+   * Returns props as stringified JSON
+   */
+  toString(): string {
+    return JSON.stringify(this.props);
+  }
+
+  /**
+   * Returns session props as stringified JSON
+   */
+  toStringSession(): string {
+    return JSON.stringify(this.sessionProps);
+  }
+
+  /**
+   * Returns session props as stringified JSON
+   */
+  toStringAll(): string {
+    return JSON.stringify({
+      ...this.sessionProps,
+      ...this.props,
+    });
+  }
+
+  /**
    * Dynamically define getters and setters
    * @param nameSpace: string
    * @param propNames: string[]
@@ -92,7 +116,7 @@ export class Model {
   private createSettersAndGetters(nameSpace: string, propNames: string[]) {
     for (let propName of propNames) {
       Object.defineProperty(this, propName, {
-        set: (value) => {
+        set: value => {
           if (propName in this[nameSpace]) {
             this[nameSpace][propName] = value;
           } else {
@@ -128,10 +152,7 @@ export const cachedPropery = () => {
     var originalMethod = descriptor.get;
 
     descriptor.get = function() {
-      if (this._cache[propertyKey]) {
-        console.log(`--- Getting ${propertyKey} from cache :)`);
-      } else {
-        console.log(`--- Caching ${propertyKey} to cache...`);
+      if (!this._cache[propertyKey]) {
         this._cache[propertyKey] = originalMethod.apply(this);
       }
 

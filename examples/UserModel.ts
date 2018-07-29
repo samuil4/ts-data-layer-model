@@ -18,6 +18,14 @@ export interface userSessionPropsDefinition {
   admin: boolean;
 }
 
+export type TUserData = IRawData<
+  userPropsDefinition,
+  userSessionPropsDefinition
+>;
+
+export interface IUserData
+  extends IRawData<userPropsDefinition, userSessionPropsDefinition> {}
+
 export class UserModel extends Model
   implements userPropsDefinition, userSessionPropsDefinition {
   userName: string;
