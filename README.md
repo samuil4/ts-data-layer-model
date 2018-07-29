@@ -4,6 +4,26 @@ Problem this micro library focuses to solve:
 
 > Better organization of the server returned data, excluding from model UI related data and some helper functions.
 
+## Note:
+
+Some parts of the code will be changed and optimized. Please submit your features request.
+
+## Change log
+
+### v.1.0.2
+- added collection class
+- added interfaces related to collection
+- added to core model the following models
+  - toString - export props as JSON string
+  - toStringSession - export session props as JSON string
+  - toStringAll - exports full model state as JSON string
+- removed cached property debug logs from decorator 
+
+### v. 1.0.1
+- added core model class and bare minimum functionality
+- added dome usefull interfaces
+- added some sort of test and examples
+
 ## Why ?
 
 > Assuming you have a list of items returned from an API end point and you have to add UI only related properties (here called session props). When you need to save the modified data to the server we usually do the following:
