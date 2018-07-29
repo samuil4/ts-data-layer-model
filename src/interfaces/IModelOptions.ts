@@ -1,6 +1,6 @@
 /**
  * IModel options
- * @property extraProps - Allow or dissallow adding extra properties on the props objsect
+ * @property extraProps - Allow or disallow adding extra properties on the props object
  */
 export interface IModelOptions {
   extraProps?: boolean;
