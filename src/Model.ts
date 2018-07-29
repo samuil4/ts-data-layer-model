@@ -15,7 +15,7 @@ export class Model {
   constructor(rawData: IRawData<{}, {}>, protected options: IModelOptions) {
     // TO DO: Show error on duplicate values for props and session
     this.props = rawData.props;
-    this.sessionProps = rawData.session;
+    this.sessionProps = rawData.sessionProps;
 
     const propsKeys = Object.keys(this.props);
     const sessionPropsKeys = Object.keys(this.sessionProps);
@@ -90,9 +90,15 @@ export class Model {
    */
   toStringAll(): string {
     return JSON.stringify({
-      ...this.sessionProps,
-      ...this.props,
+      sessionProps: { ...this.sessionProps },
+      props: { ...this.props },
     });
+  }
+
+  clone(): any {
+    const rawData = JSON.parse(this.toStringAll());
+    console.log(rawData);
+    return new Model(rawData, { ...this.options });
   }
 
   /**
@@ -103,7 +109,7 @@ export class Model {
   private createSettersAndGetters(nameSpace: string, propNames: string[]) {
     for (let propName of propNames) {
       Object.defineProperty(this, propName, {
-        set: value => {
+        set: (value) => {
           if (propName in this[nameSpace]) {
             this[nameSpace][propName] = value;
           } else {
@@ -147,4 +153,4 @@ export function cachedPropery() {
     };
     return descriptor;
   };
-};
+}

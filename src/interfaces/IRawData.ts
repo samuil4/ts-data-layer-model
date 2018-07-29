@@ -1,9 +1,9 @@
 /**
- * Data layout should contain props<P>, session<S> where P and S are user-defined data types
+ * Data layout should contain props<P>, sessionProps<S> where P and S are user-defined data types
  * @property props<P>
- * @property session<S>
+ * @property sessionProps<S>
  **/
 export interface IRawData<P, S> {
   props: P;
-  session: S;
+  sessionProps: S;
 }

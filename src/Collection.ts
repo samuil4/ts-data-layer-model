@@ -22,7 +22,7 @@ export class Collection<M extends Model> {
     this.model = collectionOptions.model;
     this.parent = collectionOptions.parent;
 
-    this.values = rawCollection.map(collectionItem => {
+    this.values = rawCollection.map((collectionItem) => {
       return new this.model(collectionItem);
     });
   }
@@ -60,6 +60,8 @@ export class Collection<M extends Model> {
    */
   getModelByIndex(index: number): M | null {
     if (index < this.values.length) {
+      const sessionProps = this.values[index].toStringAll;
+
       return this.values[index];
     }
 
@@ -70,7 +72,7 @@ export class Collection<M extends Model> {
    * Return immutable json of the stored models ommitng their session props
    */
   toJSON(): any[] {
-    return this.values.map(model => {
+    return this.values.map((model) => {
       return model.toJSON();
     });
   }
