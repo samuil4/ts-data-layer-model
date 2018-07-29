@@ -1,16 +1,3 @@
-/**
- * Task Description:
- * 1. Done. On instance create structure of Props and SessionProps.
- * 2. Done. Create dynamic getters and setters.
- * 3. Done. Developper must be able to use MyObject.sessionPropName or MyObject.propName without referencing Props or SessionProps.
- * 4. -> Do not let duplicated keys to be used in Props and SessionProps.
- * 5. Done for extraProps: false. Show error not found on get and set property.
- * 6. Done. If extraProps: false -> Seal prototype.
- * 7. Done. If extraProps: true -> Add property from setter method
- * 8. Done. Create method to export props as JSON excluding any sessionProperties
- * 9. Done. Ability to cache values (getters) of properties. Example: Math.PI * 256 - expected calculation to happen only once
- * 10. Ability to clear on demand cached values
- */
 import { IModelOptions } from './interfaces/IModelOptions';
 import { IRawData } from './interfaces/IRawData';
 
@@ -56,7 +43,7 @@ export class Model {
   }
 
   /**
-   * Set property by given key
+   * Set property by given key and value
    * @param key: string
    * @param value: any
    */
@@ -143,13 +130,13 @@ export class Model {
  * Each following time cached value is returned from _cache omiting original calculations
  * TO DO: add ability to clear cached value on demand
  */
-export const cachedPropery = () => {
+export function cachedPropery() {
   return (
     target: Object,
     propertyKey: string,
     descriptor: TypedPropertyDescriptor<any>,
   ) => {
-    var originalMethod = descriptor.get;
+    const originalMethod = descriptor.get;
 
     descriptor.get = function() {
       if (!this._cache[propertyKey]) {

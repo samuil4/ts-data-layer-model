@@ -3,7 +3,7 @@ import { Model } from './Model';
 
 /**
  * Collection class
- * Instantiates for each item a model and stores it
+ * Instantiates a model for each item and stores it
  * @method first
  * @method last
  * @method models
@@ -16,11 +16,11 @@ export class Collection<M extends Model> {
 
   /**
    * @param rawCollection - array of items
-   * @param options: ICollectionOptions
+   * @param collectionOptions: ICollectionOptions
    */
-  constructor(rawCollection: any[], { model, parent }: ICollectionOptions) {
-    this.model = model;
-    this.parent = parent;
+  constructor(rawCollection: any[], collectionOptions: ICollectionOptions) {
+    this.model = collectionOptions.model;
+    this.parent = collectionOptions.parent;
 
     this.values = rawCollection.map(collectionItem => {
       return new this.model(collectionItem);
