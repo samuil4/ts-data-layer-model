@@ -1,3 +1,7 @@
+/**
+ * This file provides basic tast cases
+ * TO DO: implement actual tests
+ */
 import { UserModel, IUserData } from './UserModel';
 import { UserCollection } from './UserCollection';
 

@@ -1,3 +1,7 @@
+/**
+ * This file shows an example how to use the Model
+ * by creating a UserModel that extends Model
+ */
 import { Model, cachedPropery } from '../src/Model';
 import { IRawData } from '../src/interfaces/IRawData';
 
@@ -11,6 +15,7 @@ export interface userPropsDefinition {
   age: number;
   expires?: string;
 }
+
 /**
  * Describe temporary UI related properties
  */
@@ -18,11 +23,7 @@ export interface userSessionPropsDefinition {
   admin: boolean;
 }
 
-export type TUserData = IRawData<
-  userPropsDefinition,
-  userSessionPropsDefinition
->;
-
+// Merge props and sessionProps definitions for usage in the collection
 export interface IUserData
   extends IRawData<userPropsDefinition, userSessionPropsDefinition> {}
 
@@ -53,9 +54,12 @@ export class UserModel extends Model
   }
 
   get fullName() {
-    return `Fullname is ${this.firstName} ${this.lastName}`;
+    return `${this.firstName} ${this.lastName}`;
   }
 
+  /**
+   * Example how to cache a calculation in a property
+   */
   @cachedPropery()
   get cachedDerivedProperty() {
     return this.fullName;
