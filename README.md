@@ -10,16 +10,22 @@ Some parts of the code will be changed and optimized. Please submit your feature
 
 ## Change log
 
+### v.1.0.5
+
+- added clone method on model | deep clone
+
 ### v.1.0.2
+
 - added collection class
 - added interfaces related to collection
 - added to core model the following models
   - toString - export props as JSON string
   - toStringSession - export session props as JSON string
   - toStringAll - exports full model state as JSON string
-- removed cached property debug logs from decorator 
+- removed cached property debug logs from decorator
 
 ### v. 1.0.1
+
 - added core model class and bare minimum functionality
 - added dome usefull interfaces
 - added some sort of test and examples
