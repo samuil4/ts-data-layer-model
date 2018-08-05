@@ -104,21 +104,21 @@ export class Collection<M extends Model> {
     const { index, match, items } = options;
     let deletedItems: M[] = [];
 
-    if (index !== undefined) {
+    if (typeof index !== 'undefined') {
       const removedByIndex: M | null = this.removeByIndex(index);
       if (removedByIndex) {
         deletedItems.push(removedByIndex);
       }
     }
 
-    if (match !== undefined) {
+    if (typeof match !== 'undefined') {
       const removedByMatch: M[] | null = this.removeByMatchedKeyValue(match);
       if (removedByMatch) {
         deletedItems = [...deletedItems, ...removedByMatch];
       }
     }
 
-    if (items !== undefined) {
+    if (typeof items !== 'undefined') {
       const removedByreference: M[] | null = this.removeByReference(items);
       if (removedByreference) {
         deletedItems = [...deletedItems, ...removedByreference];
@@ -147,10 +147,8 @@ export class Collection<M extends Model> {
     key: string;
     value: any;
   }): M[] | null {
-    const key = Object.keys(match)[0];
-
     const removed = this.values.filter((model) => {
-      return match.key === model[key];
+      return match.value === model[match.key];
     });
 
     if (removed.length) {
