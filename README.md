@@ -10,6 +10,10 @@ Some parts of the code will be changed and optimized. Please submit your feature
 
 ## Change log
 
+### v.1.0.6
+
+- added tests
+
 ### v.1.0.5
 
 - added clone method on model | deep clone
@@ -95,6 +99,7 @@ apiService.send(cleanItem);
 - 7.  If extraProps: true -> Add property from setter method.
 - 8.  Create method to export props as JSON excluding any sessionProperties.
 - 9.  Ability to cache values (getters) of properties. Example: Math.PI \* 256 - expected calculation to happen only once
+- 10. Tests `yarn test`
 
 ## Pending completion
 

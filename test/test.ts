@@ -203,4 +203,44 @@ describe('Collection', () => {
   it('#usersCollection should instanciate a collection', () => {
     expect(usersCollection).to.be.an.instanceOf(UserCollection);
   });
+
+  it('#usersCollection should get first element by index', () => {
+    expect(usersCollection.getModelByIndex(0).age).to.equal(22);
+  });
+
+  it('#usersCollection should not get null if provided invalid index for "getModelByIndex"', () => {
+    expect(usersCollection.getModelByIndex(99)).to.equal(null);
+  });
+
+  it('#usersCollection should be able to provide access to the first element by property "first"', () => {
+    expect(usersCollection.first.age).to.equal(22);
+  });
+
+  it('#usersCollection should be able to provide access to the last element by property "last"', () => {
+    expect(usersCollection.last.age).to.equal(33);
+  });
+
+  it('#usersCollection should be able to execute developer defined methods', () => {
+    expect(usersCollection.getAllAdmins().length).to.equal(2);
+  });
+
+  it('#usersCollection should be able to provide serialization of all models', () => {
+    expect(typeof usersCollection.toString()).to.equal('string');
+  });
+
+  it('#usersCollection should be able to export as JSON all models', () => {
+    const firstUserJson = {
+      userName: 'User1',
+      firstName: 'FirstUserName',
+      lastName: 'FirstUserLastName',
+      age: 22,
+      expires: '2020-04-30T00:00:00-04:00',
+    };
+
+    expect(typeof usersCollection.toJSON()).to.equal('object');
+    expect(usersCollection.toJSON().length).to.equal(3);
+    expect(JSON.stringify(usersCollection.toJSON()[0])).to.equal(
+      JSON.stringify(firstUserJson),
+    );
+  });
 });
