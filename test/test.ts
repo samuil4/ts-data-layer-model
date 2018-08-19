@@ -329,4 +329,43 @@ describe('Collection', () => {
 
     expect(usersCollection.length).to.equal(1);
   });
+
+  it('#usersCollection should be able to filter results using findWhere', () => {
+    const newUsers: IUserData[] = [
+      {
+        props: {
+          userName: 'User1',
+          firstName: 'FirstUserName',
+          lastName: 'FirstUserLastName',
+          age: 22,
+          expires: '2020-04-30T00:00:00-04:00',
+        },
+        sessionProps: {
+          admin: true,
+        },
+      },
+      {
+        props: {
+          userName: 'User2',
+          firstName: 'FirstUserName',
+          lastName: 'FirstUserLastName',
+          age: 22,
+          expires: '2020-04-30T00:00:00-04:00',
+        },
+        sessionProps: {
+          admin: false,
+        },
+      },
+    ];
+
+    usersCollection.reset(newUsers);
+
+    expect(usersCollection.findWhere({ admin: true })[0]).to.equal(
+      usersCollection.first,
+    );
+
+    expect(usersCollection.findWhere({ admin: false })[0]).to.equal(
+      usersCollection.last,
+    );
+  });
 });

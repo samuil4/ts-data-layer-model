@@ -201,4 +201,17 @@ export class Collection<M extends Model> {
       this.createFromRaw(rawCollection);
     }
   }
+
+  findWhere(searchObject: {}): M[] | null {
+    const keys = Object.keys(searchObject);
+
+    return this.values.filter(model => {
+      for (let index in keys) {
+        if (model[keys[index]] !== searchObject[keys[index]]) {
+          return false;
+        }
+      }
+      return true;
+    });
+  }
 }
