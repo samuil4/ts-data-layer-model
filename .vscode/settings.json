@@ -1,0 +1,9 @@
+{
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "editor.tabSize": 2,
+  "prettier.singleQuote": true,
+  "prettier.eslintIntegration": true,
+  "prettier.arrowParens": "avoid",
+  "prettier.trailingComma": "all"
+}
