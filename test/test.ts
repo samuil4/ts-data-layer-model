@@ -158,12 +158,28 @@ describe('Model cached props', () => {
     expect(cache).to.have.ownProperty('cachedDerivedProperty');
   });
 
-  it('#testUserModel should be able read cached property', () => {
+  it('#testUserModel should be able to read cached property', () => {
     const cache = testUserModel['_cache'];
     expect(cache).to.have.ownProperty('cachedDerivedProperty');
     expect(testUserModel.cachedDerivedProperty).to.equal(
       testUserModel.fullName,
     );
+  });
+
+  it('#testUserModel should be able to clear cached property', () => {
+    let cache = testUserModel['_cache'];
+    testUserModel.clearCached();
+
+    cache = testUserModel['_cache'];
+    expect(cache).to.not.have.ownProperty('cachedDerivedProperty');
+
+    testUserModel.cachedDerivedProperty;
+    cache = testUserModel['_cache'];
+    expect(cache).to.have.ownProperty('cachedDerivedProperty');
+
+    testUserModel.clearCached('cachedDerivedProperty');
+    cache = testUserModel['_cache'];
+    expect(cache).to.not.have.ownProperty('cachedDerivedProperty');
   });
 });
 

@@ -102,6 +102,18 @@ export class Model {
   }
 
   /**
+   * Clears cached properties
+   */
+  clearCached(propName?: string): void {
+    if (propName) {
+      let { [propName]: deleted, ...restCachedProps } = this._cache;
+      this._cache = restCachedProps;
+    } else {
+      this._cache = {};
+    }
+  }
+
+  /**
    * Dynamically define getters and setters
    * @param nameSpace: string
    * @param propNames: string[]
@@ -109,7 +121,7 @@ export class Model {
   private createSettersAndGetters(nameSpace: string, propNames: string[]) {
     for (let propName of propNames) {
       Object.defineProperty(this, propName, {
-        set: (value) => {
+        set: value => {
           if (propName in this[nameSpace]) {
             this[nameSpace][propName] = value;
           } else {
