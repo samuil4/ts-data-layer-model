@@ -22,34 +22,78 @@ const testUserModel = new UserModel({
   },
 });
 
+const usersTestRawData: IUserData[] = [
+  {
+    props: {
+      userName: 'User1',
+      firstName: 'FirstUserName',
+      lastName: 'FirstUserLastName',
+      age: 22,
+      expires: '2020-04-30T00:00:00-04:00',
+    },
+    sessionProps: {
+      admin: true,
+    },
+  },
+  {
+    props: {
+      userName: 'User2',
+      firstName: 'SecondUserName',
+      lastName: 'SecondUserLastName',
+      age: 10,
+      expires: '2020-04-30T00:00:00-04:00',
+    },
+    sessionProps: {
+      admin: true,
+    },
+  },
+  {
+    props: {
+      userName: 'User3',
+      firstName: 'ThirdUserName',
+      lastName: 'ThirdUserLastName',
+      age: 33,
+      expires: '2020-04-30T00:00:00-04:00',
+    },
+    sessionProps: {
+      admin: false,
+    },
+  },
+];
+
 describe('Create a new model test', () => {
-  it('should return a new model', () => {
+  it('#Model should return a new model', () => {
     const newModel = new Model({ props: {}, sessionProps: {} }, {});
     expect(typeof newModel).to.equal('object');
   });
 });
 
 describe('Model general implementation', () => {
-  it('should be able to access props properties', () => {
+  it('#testUserModel should be able to access props properties', () => {
     expect(testUserModel.userName).to.equal('Testuser');
   });
-  it('should be able to access sessionProps properties', () => {
+
+  it('#testUserModel should be able to access sessionProps properties', () => {
     expect(testUserModel.admin).to.equal(true);
   });
-  it('should be able to access get(prop: string) method', () => {
+
+  it('#testUserModel should be able to access get(prop: string) method', () => {
     expect(testUserModel.get('userName')).to.equal('Testuser');
   });
-  it('should be able to use set(prop: string, value: any) method', () => {
+
+  it('#testUserModel should be able to use set(prop: string, value: any) method', () => {
     function useSetMethod() {
       testUserModel.set('userName', 'TestUser4');
     }
     expect(useSetMethod).to.not.throw();
     expect(testUserModel.userName).to.equal('TestUser4');
   });
-  it('should be able to access derived properties', () => {
+
+  it('#testUserModel should be able to access derived properties', () => {
     expect(testUserModel.expirationDateString).to.equal('Thu Apr 30 2020');
   });
-  it('should throw error when trying to define a new property for extraProps === false', () => {
+
+  it('#testUserModel should throw error when trying to define a new property for extraProps === false', () => {
     function addNewProperty() {
       testUserModel['newProperty'] = 5;
     }
@@ -57,17 +101,47 @@ describe('Model general implementation', () => {
   });
 });
 
+describe('Model toString methods', () => {
+  it('#testUserModel should return string by using toString method', () => {
+    expect(typeof testUserModel.toString()).to.equal('string');
+  });
+
+  it('#testUserModel toString method should return exact value', () => {
+    expect(testUserModel.toString()).to.equal(
+      '{"userName":"TestUser4","firstName":"Samuil","lastName":"Gospodinov","age":5,"expires":"2020-04-30T00:00:00-04:00","complexObj":{"a":"A","b":"B"}}',
+    );
+  });
+
+  it('#testUserModel should return string by using toStringSession method', () => {
+    expect(typeof testUserModel.toStringSession()).to.equal('string');
+  });
+
+  it('#testUserModel toStringSession method should return exact value', () => {
+    expect(testUserModel.toStringSession()).to.equal('{"admin":true}');
+  });
+
+  it('#testUserModel should return string by using toStringAll method', () => {
+    expect(typeof testUserModel.toStringAll()).to.equal('string');
+  });
+
+  it('#testUserModel toStringAll method should return exact value', () => {
+    expect(testUserModel.toStringAll()).to.equal(
+      '{"sessionProps":{"admin":true},"props":{"userName":"TestUser4","firstName":"Samuil","lastName":"Gospodinov","age":5,"expires":"2020-04-30T00:00:00-04:00","complexObj":{"a":"A","b":"B"}}}',
+    );
+  });
+});
+
 describe('Model deriverd props', () => {
-  it('should be able to access Date object', () => {
+  it('#testUserModel should be able to access Date object', () => {
     expect(typeof testUserModel.expirationDate).to.equal('object');
   });
-  it('should be able to access Date object as string', () => {
+  it('#testUserModel should be able to access Date object as string', () => {
     expect(typeof testUserModel.expirationDateString).to.equal('string');
   });
-  it('should be able to concatenate 2 props', () => {
+  it('#testUserModel should be able to concatenate 2 props', () => {
     expect(testUserModel.fullName).to.equal('Samuil Gospodinov');
   });
-  it('should be able to update derived props', () => {
+  it('#testUserModel should be able to update derived props', () => {
     testUserModel.firstName = 'Samuil1';
     testUserModel.lastName = 'Gospodinov1';
     expect(testUserModel.fullName).to.equal('Samuil1 Gospodinov1');
@@ -75,7 +149,7 @@ describe('Model deriverd props', () => {
 });
 
 describe('Model cached props', () => {
-  it('should set value in the cache for first time access of cached property', () => {
+  it('#testUserModel should set value in the cache for first time access of cached property', () => {
     const cache = testUserModel['_cache'];
     expect(cache).to.not.have.ownProperty('cachedDerivedProperty');
     expect(testUserModel.cachedDerivedProperty).to.equal(
@@ -84,7 +158,7 @@ describe('Model cached props', () => {
     expect(cache).to.have.ownProperty('cachedDerivedProperty');
   });
 
-  it('should be able read cached property', () => {
+  it('#testUserModel should be able read cached property', () => {
     const cache = testUserModel['_cache'];
     expect(cache).to.have.ownProperty('cachedDerivedProperty');
     expect(testUserModel.cachedDerivedProperty).to.equal(
@@ -96,14 +170,37 @@ describe('Model cached props', () => {
 describe('Model clone', () => {
   let clonedUser;
 
-  it('should be able clone a model', () => {
+  it('#testUserModel should be able to create a cloned model copy', () => {
     function cloneUserModel() {
       clonedUser = testUserModel.clone() as UserModel;
     }
 
     expect(cloneUserModel).to.not.throw();
     expect(clonedUser).to.be.an.instanceOf(UserModel);
+  });
 
-    clonedUser.set('userName', 'ClonedUser');
+  it('#clonedUser should not be affected by changing properties on testUserModel', () => {
+    clonedUser.userName = testUserModel.userName;
+    // Props
+    testUserModel.firstName = 'Samuil_';
+    testUserModel.lastName = 'Gospodinov_';
+    testUserModel.complexObj.a = '__a__';
+    testUserModel.complexObj.b = '__b__';
+    testUserModel.admin = false;
+    // Session props
+    expect(clonedUser.toStringAll()).to.not.equal(testUserModel.toStringAll());
+
+    expect(clonedUser.toString()).to.not.equal(testUserModel.toString());
+    expect(clonedUser.toStringSession()).to.not.equal(
+      testUserModel.toStringSession(),
+    );
+  });
+});
+
+describe('Collection', () => {
+  const usersCollection = new UserCollection(usersTestRawData);
+
+  it('#usersCollection should instanciate a collection', () => {
+    expect(usersCollection).to.be.an.instanceOf(UserCollection);
   });
 });

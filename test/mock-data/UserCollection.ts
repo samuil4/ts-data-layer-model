@@ -1,6 +1,6 @@
 import { UserModel, IUserData } from './UserModel';
-import { Collection } from 'ts-data-layer-model';
-import { ICollectionOptions } from 'ts-data-layer-model';
+import { Collection } from './../../src/Collection';
+import { ICollectionOptions } from './../../src/interfaces/ICollectionOptions';
 
 export class UserCollection extends Collection<UserModel> {
   constructor(rawCollection: IUserData[], options: { parent?: any } = {}) {
@@ -17,7 +17,7 @@ export class UserCollection extends Collection<UserModel> {
    * Example method on developer defined collection
    */
   getAllAdmins(): UserModel[] {
-    return this.models.filter((model) => {
+    return this.models.filter(model => {
       return model.admin === true;
     });
   }
