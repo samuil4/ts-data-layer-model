@@ -27,7 +27,11 @@ export class Collection<M extends Model> {
     this.model = collectionOptions.model;
     this.parent = collectionOptions.parent;
 
-    this.values = rawCollection.map((collectionItem) => {
+    this.createFromRaw(rawCollection);
+  }
+
+  private createFromRaw(rawCollection: any[]): void {
+    this.values = rawCollection.map(collectionItem => {
       return new this.model(collectionItem);
     });
   }
@@ -37,6 +41,10 @@ export class Collection<M extends Model> {
    */
   get models(): M[] {
     return this.values;
+  }
+
+  get length(): number {
+    return this.values.length;
   }
 
   /**
@@ -75,7 +83,7 @@ export class Collection<M extends Model> {
    * Return immutable json of the stored models ommitng their session props
    */
   toJSON(): any[] {
-    return this.values.map((model) => {
+    return this.values.map(model => {
       return model.toJSON();
     });
   }
@@ -147,7 +155,7 @@ export class Collection<M extends Model> {
     key: string;
     value: any;
   }): M[] | null {
-    const removed = this.values.filter((model) => {
+    const removed = this.values.filter(model => {
       return match.value === model[match.key];
     });
 
@@ -184,5 +192,13 @@ export class Collection<M extends Model> {
    */
   getIndex(item: M): number | undefined {
     return this.values.indexOf(item);
+  }
+
+  reset(rawCollection?: any[]): void {
+    this.removeByReference(this.models);
+
+    if (rawCollection) {
+      this.createFromRaw(rawCollection);
+    }
   }
 }

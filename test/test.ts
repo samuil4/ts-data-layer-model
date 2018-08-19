@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { Model } from '../dist/Model';
-import { Collection } from '../dist/Collection';
+import { ICollectionRemoveItemOptions } from '../dist/interfaces/ICollectionOptions';
 import { cachedPropery } from '../dist/Model';
 import { UserModel, IUserData } from './mock-data/UserModel';
 import { UserCollection } from './mock-data/UserCollection';
@@ -242,5 +242,75 @@ describe('Collection', () => {
     expect(JSON.stringify(usersCollection.toJSON()[0])).to.equal(
       JSON.stringify(firstUserJson),
     );
+  });
+
+  it('#usersCollection should be able to add models', () => {
+    const expectedLength = usersCollection.length + 1;
+    const newUser: IUserData = {
+      props: {
+        userName: 'User1',
+        firstName: 'FirstUserName',
+        lastName: 'FirstUserLastName',
+        age: 22,
+        expires: '2020-04-30T00:00:00-04:00',
+      },
+      sessionProps: {
+        admin: true,
+      },
+    };
+    const newUserModel = usersCollection.add(newUser, {});
+
+    expect(usersCollection.length).to.equal(expectedLength);
+    expect(newUserModel).to.be.an.instanceOf(UserModel);
+  });
+
+  it('#usersCollection should be able to remove models', () => {
+    const expectedLength = usersCollection.length - 1;
+    const expectedLength2 = usersCollection.length - 2;
+    const modelToRemove = usersCollection.first;
+
+    usersCollection.remove({
+      items: [modelToRemove],
+    });
+
+    expect(usersCollection.length).to.equal(expectedLength);
+
+    usersCollection.remove({
+      index: 0,
+    });
+
+    expect(usersCollection.length).to.equal(expectedLength2);
+
+    usersCollection.remove({
+      match: {
+        key: 'admin',
+        value: true,
+      },
+    });
+
+    expect(usersCollection.length).to.equal(1);
+  });
+
+  it('#usersCollection should be able to reset', () => {
+    usersCollection.reset();
+
+    expect(usersCollection.length).to.equal(0);
+
+    const newUser: IUserData = {
+      props: {
+        userName: 'User1',
+        firstName: 'FirstUserName',
+        lastName: 'FirstUserLastName',
+        age: 22,
+        expires: '2020-04-30T00:00:00-04:00',
+      },
+      sessionProps: {
+        admin: true,
+      },
+    };
+
+    usersCollection.reset([newUser]);
+
+    expect(usersCollection.length).to.equal(1);
   });
 });
