@@ -13,6 +13,9 @@ Some parts of the code will be changed and optimized. Please submit your feature
 ### v.1.0.6
 
 - added tests
+- added add/remove method on collection `myCollection.add(rawJSON)`, `myCollection.remove(model)`
+- added collection reset method `myCollection.reset()`, `myCollection.reset(rawJSON)`
+- added collection length property `myCollection.length`
 
 ### v.1.0.5
 
