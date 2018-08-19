@@ -16,6 +16,7 @@ Some parts of the code will be changed and optimized. Please submit your feature
 - added add/remove method on collection `myCollection.add(rawJSON)`, `myCollection.remove(model)`
 - added collection reset method `myCollection.reset()`, `myCollection.reset(rawJSON)`
 - added collection length property `myCollection.length`
+- added model clerCached method to clear cached props `myCollection.clearCached() // clears all`, `myCollection.clearCached('myProp') // clears myProp`
 
 ### v.1.0.5
 
