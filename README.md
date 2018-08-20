@@ -18,6 +18,7 @@ Some parts of the code will be changed and optimized. Please submit your feature
 - added collection length property `myCollection.length`
 - added model clerCached method to clear cached props `myCollection.clearCached() // clears all`, `myCollection.clearCached('myProp') // clears myProp`
 - added findWhere method to collection `myCollection.findWhere({name: "Samuil", admin: true})`
+- added sortBy method to collection `myCollection.sortBy('name') // string sorted`, `myCollection.sortBy('age') // number sorted`
 
 ### v.1.0.5
 
