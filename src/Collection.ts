@@ -194,12 +194,14 @@ export class Collection<M extends Model> {
     return this.values.indexOf(item);
   }
 
-  reset(rawCollection?: any[]): void {
+  reset(rawCollection?: any[]): Collection<M> {
     this.removeByReference(this.models);
 
     if (rawCollection) {
       this.createFromRaw(rawCollection);
     }
+
+    return this;
   }
 
   findWhere(searchObject: {}): M[] | null {
@@ -212,6 +214,40 @@ export class Collection<M extends Model> {
         }
       }
       return true;
+    });
+  }
+
+  sortBy(propName: string): Collection<M> {
+    if (typeof this.first[propName] === 'string') {
+      this.sortByStringProp(propName);
+    }
+
+    if (typeof this.first[propName] === 'number') {
+      this.sortByNumberProp(propName);
+    }
+
+    return this;
+  }
+
+  protected sortByNumberProp(propName: string) {
+    this.values.sort(function(a, b) {
+      return a[propName] - b[propName];
+    });
+  }
+
+  protected sortByStringProp(propName: string) {
+    this.values.sort((a, b) => {
+      const A = a[propName].toUpperCase();
+      const B = b[propName].toUpperCase();
+
+      if (A < B) {
+        return -1;
+      }
+      if (A > B) {
+        return 1;
+      }
+
+      return 0;
     });
   }
 }

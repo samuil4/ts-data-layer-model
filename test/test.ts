@@ -368,4 +368,54 @@ describe('Collection', () => {
       usersCollection.last,
     );
   });
+
+  it('#usersCollection should be able to sort it`s values using sortBy', () => {
+    const newUsers: IUserData[] = [
+      {
+        props: {
+          userName: 'User1',
+          firstName: 'FirstUserName',
+          lastName: 'FirstUserLastName',
+          age: 44,
+          expires: '2020-04-30T00:00:00-04:00',
+        },
+        sessionProps: {
+          admin: true,
+        },
+      },
+      {
+        props: {
+          userName: 'User2',
+          firstName: 'FirstUserName',
+          lastName: 'FirstUserLastName',
+          age: 22,
+          expires: '2020-04-30T00:00:00-04:00',
+        },
+        sessionProps: {
+          admin: false,
+        },
+      },
+      {
+        props: {
+          userName: 'User3',
+          firstName: 'FirstUserName',
+          lastName: 'FirstUserLastName',
+          age: 18,
+          expires: '2020-04-30T00:00:00-04:00',
+        },
+        sessionProps: {
+          admin: false,
+        },
+      },
+    ];
+
+    usersCollection.reset(newUsers).sortBy('age');
+
+    expect(usersCollection.first.age).to.equal(18);
+    expect(usersCollection.last.age).to.equal(44);
+
+    usersCollection.sortBy('userName');
+    expect(usersCollection.first.userName).to.equal('User1');
+    expect(usersCollection.last.userName).to.equal('User3');
+  });
 });
